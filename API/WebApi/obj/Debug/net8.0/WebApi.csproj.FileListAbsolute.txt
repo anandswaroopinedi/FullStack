@@ -292,3 +292,4 @@ C:\Users\anand.i\Downloads\WebApp\FullStack\API\WebApi\obj\Debug\net8.0\refint\W
 C:\Users\anand.i\Downloads\WebApp\FullStack\API\WebApi\obj\Debug\net8.0\WebApi.pdb
 C:\Users\anand.i\Downloads\WebApp\FullStack\API\WebApi\obj\Debug\net8.0\WebApi.genruntimeconfig.cache
 C:\Users\anand.i\Downloads\WebApp\FullStack\API\WebApi\obj\Debug\net8.0\ref\WebApi.dll
+C:\Users\anand.i\Downloads\WebApp\FullStack\API\WebApi\obj\Debug\net8.0\WebApi.sourcelink.json
