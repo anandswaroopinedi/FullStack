@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "8b2ouN2BHjxlQgC5GzNydzJtN2AFLphO9WLKIlK4N/2U+c2cW3zmG2RN17lskw+RcAy6uK/aINvBIRIm5HWWew==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\anand.i\\Downloads\\WebApp\\FullStack\\API\\Models\\Models.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\anand.i\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
+    "C:\\Users\\anand.i\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\anand.i\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
+    "C:\\Users\\anand.i\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\anand.i\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
