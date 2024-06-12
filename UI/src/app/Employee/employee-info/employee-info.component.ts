@@ -3,7 +3,6 @@ import {
   OnDestroy,
   Input,
   OnChanges,
-  viewChild,
   ElementRef,
   ViewChild,
 } from '@angular/core';

@@ -47,7 +47,6 @@ export class OperationsBarComponent implements OnInit, OnDestroy {
   statusSubscription?: Subscription;
   resetFilterCheckBoxes: boolean = false;
   @ViewChild('buttonsRef') alphabetButtonRef?: ElementRef;
-  @ViewChild('filterCheckBoxes') filterCheckBoxes?: ElementRef;
   constructor(
     private employeeService: EmployeeService,
     private departmentService: DepartmentService,
@@ -159,24 +158,6 @@ export class OperationsBarComponent implements OnInit, OnDestroy {
   ExportData() {
     this.export.emit(true);
   }
-  // makeFilterArraysDefault()
-  // {
-  //   this.selectedDepartments=[];
-  //   this.selectedLocations=[];
-  //   this.selectedStatus=[];
-  //   this.departmentSelectedCount=0;
-  //   this.locationSelectedCount=0;
-  //   this.statusSelectedCount=0;
-  //   this.isDepartmentDropDownHidden=true;
-  //   this.isLocationDropDownHidden=true;
-  //   this.isStatusDropDownHidden=true;
-  //   //const selectedCheckBoxes=this.filterCheckBoxes?.nativeElement.querySelectorAll('div.input.');
-  //   const checkboxes=document.getElementsByClassName("status-check") as HTMLCollectionOf<HTMLInputElement>
-  //   for(let i=0;i<checkboxes.length;i++)
-  //   {
-  //     checkboxes[i].checked=false;
-  //   }
-  // }
   ngOnDestroy() {
     this.deptSubscription?.unsubscribe();
     this.locSubscription?.unsubscribe();

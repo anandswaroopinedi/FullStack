@@ -19,7 +19,7 @@ export const customInterceptor: HttpInterceptorFn = (req, next) => {
       else{
         console.log("HTTP error:",err);
       }
-    }
+    }//[1,2,3,4,5]
     else
     {
       console.log("Non Http Error:",err);

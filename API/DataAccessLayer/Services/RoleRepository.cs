@@ -25,13 +25,5 @@ namespace DataAccessLayer.Services
             _employeeDirectoryContext.SaveChanges();
             return _employeeDirectoryContext.Roles.Select(r=>r.Id).Max();
         }
-
-/*        public async Task<List<RoleEntity>> GetRoles()
-        {
-            List<RoleEntity> roles = _employeeDirectoryContext.Roles.Include(r => r.Department).Include(l => l.Location).ToList();
-            for (int i = 0; i < roles.Count; i++)
-                Console.WriteLine(roles[i].Department.Name + " " + roles[i].Department.Name);
-            return (from role in Roles select role).ToList();
-        }*/
     }
 }
