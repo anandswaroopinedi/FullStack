@@ -120,45 +120,13 @@ export class EmployeeInfoComponent implements OnChanges, OnDestroy {
     });
   }
   ExportData() {
-    const fileName = 'EmployeeData.xlsx';
-    const worksheetData: any[][] = this.employeeData.map((employee) => {
-      return [
-        employee.id,
-        employee.firstName,
-        employee.email,
-        employee.jobTitleName,
-        employee.departmentName,
-        employee.locationName,
-        employee.statusName,
-      ];
+    const filteredEmployeeData = this.employeeData.map(employee => {
+      const { profileImage,jobTitleId,departmentId,locationId,statusId,projectId, ...rest } = employee;
+      return rest;
     });
-
-    worksheetData.unshift([
-      'ID',
-      'Name',
-      'Email',
-      'Role',
-      'Department',
-      'Location',
-      'Status',
-    ]); 
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(worksheetData);
-    console.log(ws); 
-    XLSX.utils.book_append_sheet(wb, ws, 'Employee Data'); 
-    const excelBuffer: any = XLSX.write(wb, {
-      bookType: 'xlsx',
-      type: 'binary',
-    });
-    const blob = new Blob([excelBuffer], { type: 'application/vnd.ms-excel' });
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = fileName;
-    link.style.display = 'none'; 
-    document.body.appendChild(link);
-    link.click();
-    window.URL.revokeObjectURL(link.href);
-    document.body.removeChild(link);
+    const workSheet:XLSX.WorkSheet = XLSX.utils.json_to_sheet(filteredEmployeeData);
+    const workBook:XLSX.WorkBook={Sheets:{'employees':workSheet}, SheetNames:['employees']};
+    XLSX.writeFile(workBook,'employees.xlsx');
   }
   ngOnDestroy(): void {
     this.subscribtion?.unsubscribe();
