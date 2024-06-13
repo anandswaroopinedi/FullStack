@@ -2,7 +2,7 @@ import { Component, DoCheck, Input, OnInit, ViewChild } from '@angular/core';
 import { OperationsBarComponent } from '../operations-bar/operations-bar.component';
 import { CommonModule } from '@angular/common';
 import { EmployeeInfoComponent } from '../employee-info/employee-info.component';
-import { EmployeeService } from '../../Services/employee-service.service';
+import { EmployeeService } from '../../Services/Employee/employee-service.service';
 import { FilterData } from '../../Models/filter-data';
 import { Router } from '@angular/router';
 import { Employee } from '../../Models/employee';

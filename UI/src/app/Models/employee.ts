@@ -1,6 +1,6 @@
 //import { Status } from "../status/status";
 
-import { Status } from '../Status/status';
+import { Status } from './status';
 
 export interface Employee {
   dateOfBirth: string;

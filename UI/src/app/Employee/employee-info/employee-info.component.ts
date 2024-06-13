@@ -6,7 +6,7 @@ import {
   ElementRef,
   ViewChild,
 } from '@angular/core';
-import { EmployeeService } from '../../Services/employee-service.service';
+import { EmployeeService } from '../../Services/Employee/employee-service.service';
 import { Employee } from '../../Models/employee';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';

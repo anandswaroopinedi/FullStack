@@ -7,17 +7,17 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { EmployeeService } from '../../Services/employee-service.service';
-import { DepartmentService } from '../../Services/department-service.service';
+import { EmployeeService } from '../../Services/Employee/employee-service.service';
+import { DepartmentService } from '../../Services/Department/department-service.service';
 import { Department } from '../../Models/department';
 import { Location } from '../../Models/location';
 import { Subscription } from 'rxjs';
-import { LocationService } from '../../Services/location.service';
+import { LocationService } from '../../Services/Location/location.service';
 import { FilterData } from '../../Models/filter-data';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
-import { Status } from '../../Status/status';
-import { StatusService } from '../../Status/status.service';
+import { Status } from '../../Models/status';
+import { StatusService } from '../../Services/Status/status.service';
 import { FilterDropdownComponent } from '../../Shared Components/filter-dropdown/filter-dropdown.component';
 import { FilterControlButtonsComponent } from '../../Shared Components/filter-control-buttons/filter-control-buttons.component';
 @Component({

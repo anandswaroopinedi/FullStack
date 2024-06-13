@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RoleOperationsComponent } from '../role-operations/role-operations.component';
 import { RoleInfoComponent } from '../role-info/role-info.component';
-import { RoleService } from '../../Services/role.service';
+import { RoleService } from '../../Services/Role/role.service';
 import { FilterData } from '../../Models/filter-data';
 @Component({
   selector: 'app-role-body',

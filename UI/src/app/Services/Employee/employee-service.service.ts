@@ -1,10 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Observable, Subject, delay, map, of } from 'rxjs';
-import { Employee } from '../Models/employee';
-import { FilterData } from '../Models/filter-data';
+import { Employee } from '../../Models/employee';
+import { FilterData } from '../../Models/filter-data';
 import axios from 'axios';
-import { WebApiUrls } from '../webapi-urls';
+import { WebApiUrls } from '../../webapi-urls';
 @Injectable({
   providedIn: 'root',
 })

@@ -9,17 +9,17 @@ import {
 import { Department } from '../../Models/department';
 import { Role } from '../../Models/role';
 import { Subject, Subscription } from 'rxjs';
-import { DepartmentService } from '../../Services/department-service.service';
-import { LocationService } from '../../Services/location.service';
-import { RoleService } from '../../Services/role.service';
+import { DepartmentService } from '../../Services/Department/department-service.service';
+import { LocationService } from '../../Services/Location/location.service';
+import { RoleService } from '../../Services/Role/role.service';
 import { Location } from '../../Models/location';
-import { Project } from '../../Project/project';
+import { Project } from '../../Models/project';
 import { Employee } from '../../Models/employee';
-import { EmployeeService } from '../../Services/employee-service.service';
-import { ProjectService } from '../../Project/project.service';
+import { EmployeeService } from '../../Services/Employee/employee-service.service';
+import { ProjectService } from '../../Services/Project/project.service';
 import { CommonModule } from '@angular/common';
-import { StatusService } from '../../Status/status.service';
-import { Status } from '../../Status/status';
+import { StatusService } from '../../Services/Status/status.service';
+import { Status } from '../../Models/status';
 import { ActivatedRoute, Router } from '@angular/router';
 import { duplicateIdValidator } from '../../Custom Validators/custom-validators';
 

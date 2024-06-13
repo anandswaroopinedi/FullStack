@@ -6,7 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Role } from '../../Models/role';
-import { RoleService } from '../../Services/role.service';
+import { RoleService } from '../../Services/Role/role.service';
 import { FilterData } from '../../Models/filter-data';
 import { RouterLink } from '@angular/router';
 

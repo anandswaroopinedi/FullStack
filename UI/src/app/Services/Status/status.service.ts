@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Status } from './status';
+import { Status } from '../../Models/status';
 import { Observable } from 'rxjs';
-import { WebApiUrls } from '../webapi-urls';
+import { WebApiUrls } from '../../webapi-urls';
 
 @Injectable({
   providedIn: 'root',

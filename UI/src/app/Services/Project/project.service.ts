@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Project } from './project';
+import { Project } from '../../Models/project';
 import { HttpClient } from '@angular/common/http';
-import { WebApiUrls } from '../webapi-urls';
+import { WebApiUrls } from '../../webapi-urls';
 
 @Injectable({
   providedIn: 'root',

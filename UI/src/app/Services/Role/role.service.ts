@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Role } from '../Models/role';
+import { Role } from '../../Models/role';
 import { Observable, Subject } from 'rxjs';
-import { WebApiUrls } from '../webapi-urls';
-import { FilterData } from '../Models/filter-data';
+import { WebApiUrls } from '../../webapi-urls';
+import { FilterData } from '../../Models/filter-data';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +22,6 @@ export class RoleService {
   rep: any;
   addRole(role: Role, employees: string[]): Observable<string> {
     debugger;
-    //const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
     let params = new HttpParams();
     params = params.append('employees', employees.join(','));
     return this.http.post<string>(this.apiUrls.postRole, role, {

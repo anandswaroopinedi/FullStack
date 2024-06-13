@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { DepartmentService } from '../../Services/department-service.service';
-import { LocationService } from '../../Services/location.service';
+import { DepartmentService } from '../../Services/Department/department-service.service';
+import { LocationService } from '../../Services/Location/location.service';
 import { Location } from '../../Models/location';
 import { Department } from '../../Models/department';
 import { Employee } from '../../Models/employee';
-import { EmployeeService } from '../../Services/employee-service.service';
+import { EmployeeService } from '../../Services/Employee/employee-service.service';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,
@@ -14,7 +14,7 @@ import {
 } from '@angular/forms';
 import { Role } from '../../Models/role';
 import { Router } from '@angular/router';
-import { RoleService } from '../../Services/role.service';
+import { RoleService } from '../../Services/Role/role.service';
 
 @Component({
   selector: 'app-add-role',
