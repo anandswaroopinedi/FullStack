@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { FilterData } from '../../Models/filter-data';
 import { RouterLink } from '@angular/router';
-import { FormatNullToNonePipe } from '../../Custom Pipes/format-null-to-none.pipe';
+import { FormatNullToNonePipe } from '../../Shared Components/Custom Pipes/format-null-to-none.pipe';
 import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-employee-info',

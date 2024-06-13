@@ -18,8 +18,8 @@ import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { Status } from '../../Models/status';
 import { StatusService } from '../../Services/Status/status.service';
-import { FilterDropdownComponent } from '../../Shared Components/filter-dropdown/filter-dropdown.component';
-import { FilterControlButtonsComponent } from '../../Shared Components/filter-control-buttons/filter-control-buttons.component';
+import { FilterDropdownComponent } from '../../Shared Components/Components/filter-dropdown/filter-dropdown.component';
+import { FilterControlButtonsComponent } from '../../Shared Components/Components/filter-control-buttons/filter-control-buttons.component';
 @Component({
   selector: 'app-operations-bar',
   standalone: true,

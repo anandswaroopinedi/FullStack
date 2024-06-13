@@ -1,5 +1,5 @@
 import { AbstractControl, AsyncValidatorFn, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { EmployeeService } from '../Services/Employee/employee-service.service';
+import { EmployeeService } from '../../Services/Employee/employee-service.service';
 import { Observable, of} from 'rxjs';
 import { map } from 'rxjs/operators';
 

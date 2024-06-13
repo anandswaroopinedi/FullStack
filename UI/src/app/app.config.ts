@@ -2,7 +2,7 @@ import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { customInterceptor } from './Interceptor/custom.interceptor';
+import { customInterceptor } from './Shared Components/Interceptor/custom.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), provideHttpClient(withInterceptors([customInterceptor]))],
 };

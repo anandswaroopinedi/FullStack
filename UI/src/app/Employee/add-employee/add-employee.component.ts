@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
 import { StatusService } from '../../Services/Status/status.service';
 import { Status } from '../../Models/status';
 import { ActivatedRoute, Router } from '@angular/router';
-import { duplicateIdValidator } from '../../Custom Validators/custom-validators';
+import { duplicateIdValidator } from '../../Shared Components/Custom Validators/custom-validators';
 
 @Component({
   selector: 'app-add-employee',
