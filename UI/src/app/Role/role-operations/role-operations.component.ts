@@ -1,13 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { DepartmentService } from '../../Department/department-service.service';
-import { LocationService } from '../../Location/location.service';
-import { Department } from '../../Department/department';
-import { Location } from '../../Location/location';
+import { DepartmentService } from '../../Services/department-service.service';
+import { LocationService } from '../../Services/location.service';
+import { Department } from '../../Models/department';
+import { Location } from '../../Models/location';
 import { FilterDropdownComponent } from '../../Shared Components/filter-dropdown/filter-dropdown.component';
 import { FilterControlButtonsComponent } from '../../Shared Components/filter-control-buttons/filter-control-buttons.component';
-import { RoleService } from '../role.service';
-import { FilterData } from '../../Employee/filter-data';
+import { RoleService } from '../../Services/role.service';
+import { FilterData } from '../../Models/filter-data';
 import { RouterLink } from '@angular/router';
 
 @Component({

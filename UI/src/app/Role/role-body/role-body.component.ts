@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RoleOperationsComponent } from '../role-operations/role-operations.component';
 import { RoleInfoComponent } from '../role-info/role-info.component';
-import { RoleService } from '../role.service';
-import { FilterData } from '../../Employee/filter-data';
+import { RoleService } from '../../Services/role.service';
+import { FilterData } from '../../Models/filter-data';
 @Component({
   selector: 'app-role-body',
   standalone: true,

@@ -5,9 +5,9 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { Role } from '../role';
-import { RoleService } from '../role.service';
-import { FilterData } from '../../Employee/filter-data';
+import { Role } from '../../Models/role';
+import { RoleService } from '../../Services/role.service';
+import { FilterData } from '../../Models/filter-data';
 import { RouterLink } from '@angular/router';
 
 @Component({

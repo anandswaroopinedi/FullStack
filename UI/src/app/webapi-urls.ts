@@ -1,3 +1,8 @@
+import { Injectable } from "@angular/core";
+
+@Injectable({
+  providedIn: 'root'
+})
 export class WebApiUrls {
   addEmployee: string;
   getAllEmployees: string;
