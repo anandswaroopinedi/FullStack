@@ -14,12 +14,13 @@ import { FilterData } from '../../Models/filter-data';
 import { RouterLink } from '@angular/router';
 import { FormatNullToNonePipe } from '../../Shared Components/Custom Pipes/format-null-to-none.pipe';
 import * as XLSX from 'xlsx';
+import { PaginationComponent } from "../../Shared Components/Components/pagination/pagination.component";
 @Component({
-  selector: 'app-employee-info',
-  standalone: true,
-  imports: [CommonModule, RouterLink, FormatNullToNonePipe],
-  templateUrl: './employee-info.component.html',
-  styleUrl: './employee-info.component.scss',
+    selector: 'app-employee-info',
+    standalone: true,
+    templateUrl: './employee-info.component.html',
+    styleUrl: './employee-info.component.scss',
+    imports: [CommonModule, RouterLink, FormatNullToNonePipe, PaginationComponent]
 })
 export class EmployeeInfoComponent implements OnChanges, OnDestroy {
   @Input() filterData?: FilterData;
@@ -29,11 +30,17 @@ export class EmployeeInfoComponent implements OnChanges, OnDestroy {
   checkedEmployeesCount: number = 0;
   selectedEmployeesDelete: string[] = [];
   isShowOptionMenu: boolean = false;
+  selectedPageNumber:number=1;
+  pageSize:number=3;
   @ViewChild('headCheckBoxChecked') headCheckBoxCheckedRef?: ElementRef;
   isheadCheckBoxChecked: boolean = false;
+  pageNumbers:number=0;
   constructor(private employeeService: EmployeeService) {}
   ngOnInit() {
-    this.employeeService.getEmployeeData().subscribe((employees) => {
+    this.employeeService.getEmployeeCount().subscribe((value)=>{
+      this.pageNumbers=Math.ceil(value/this.pageSize)
+    })
+    this.employeeService.getEmployeeData(this.selectedPageNumber,this.pageSize).subscribe((employees) => {
       this.employeeData = employees;
     },
     (error)=>{console.log(error['status']);
@@ -43,7 +50,7 @@ export class EmployeeInfoComponent implements OnChanges, OnDestroy {
   }
   ngOnChanges() {
     if (this.filterData != undefined) {
-      this.employeeService.applyFilters(this.filterData).subscribe({
+      this.employeeService.applyFilters(this.filterData,this.selectedPageNumber,this.pageSize).subscribe({
         next: (employees) => {
           this.employeeData = employees;
         },
@@ -92,7 +99,7 @@ export class EmployeeInfoComponent implements OnChanges, OnDestroy {
   }
   deleteEmployees() {
     this.employeeService
-      .deleteEmployeeData(this.selectedEmployeesDelete)
+      .deleteEmployeeData(this.selectedEmployeesDelete,this.selectedPageNumber,this.pageSize)
       .subscribe((employees) => {
         this.employeeData = employees;
       });
@@ -100,7 +107,7 @@ export class EmployeeInfoComponent implements OnChanges, OnDestroy {
   }
   sortTable(properety: string, order: string) {
     this.employeeService
-      .applySorting(properety, order)
+      .applySorting(properety, order,this.selectedPageNumber,this.pageSize)
       .subscribe((employees) => {
         this.employeeData = employees;
       });
@@ -115,7 +122,7 @@ export class EmployeeInfoComponent implements OnChanges, OnDestroy {
   deleteEmployeeUsingEllipsis(id: string) {
     var arr: string[] = [];
     arr.push(id);
-    this.employeeService.deleteEmployeeData(arr).subscribe((employees) => {
+    this.employeeService.deleteEmployeeData(arr,this.selectedPageNumber,this.pageSize).subscribe((employees) => {
       this.employeeData = employees;
     });
   }
@@ -127,6 +134,24 @@ export class EmployeeInfoComponent implements OnChanges, OnDestroy {
     const workSheet:XLSX.WorkSheet = XLSX.utils.json_to_sheet(filteredEmployeeData);
     const workBook:XLSX.WorkBook={Sheets:{'employees':workSheet}, SheetNames:['employees']};
     XLSX.writeFile(workBook,'employees.xlsx');
+  }
+  choosePageNumber(pageNumber:number)
+  {
+    this.selectedPageNumber=pageNumber;
+    if(this.filterData!=undefined)
+    {
+      this.employeeService.applyFilters(this.filterData,this.selectedPageNumber,this.pageSize).subscribe({
+        next: (employees) => {
+          this.employeeData = employees;
+        },
+        error: (error) => console.error('error', error),
+      });
+    }
+    else{
+      this.employeeService.getEmployeeData(pageNumber,this.pageSize).subscribe((value)=>{
+        this.employeeData=value;
+      })
+    }
   }
   ngOnDestroy(): void {
     this.subscribtion?.unsubscribe();

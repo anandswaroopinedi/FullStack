@@ -62,19 +62,9 @@ namespace BusinessLogicLayer.Managers
                 }
                 return false;  
         }
-        public async Task<int> CheckIdExists(string id)
+        public async Task<List<Employee>> GetAllEmployees(int pageNumber, int recordsPerPage)
         {
-            List<Employee> employeeList = await GetAllEmployees();
-            for (int i = 0; i < employeeList.Count; i++)
-            {
-                if (employeeList[i].Id == id)
-                    return i;
-            }
-            return -1;
-        }
-        public async Task<List<Employee>> GetAllEmployees()
-        {
-            return _mapper.Map<List<Employee>>( await _employeeRepository.GetEmployees());
+            return _mapper.Map<List<Employee>>( await _employeeRepository.GetEmployees(pageNumber,recordsPerPage));
         }
         public async Task<List<Employee>> GetEmployeesWithNotAssignedRole(string name)
         {
@@ -89,18 +79,23 @@ namespace BusinessLogicLayer.Managers
         {
             return await _employeeRepository.GetAllEmployeeIds();
         }
-        public async Task<List<Employee>> ApplyFilter(Filter filterEmployee)
+        public async Task<List<Employee>> ApplyFilter(Filter filterEmployee, int pageNumber, int recordsPerPage)
         {
-            return _mapper.Map<List<Employee>>(await _employeeRepository.ApplyFilters(filterEmployee));
+            return _mapper.Map<List<Employee>>(await _employeeRepository.ApplyFilters(filterEmployee,pageNumber,recordsPerPage));
         }
-        public async Task<IEnumerable<Employee>> ApplySorting(string property, string order)
+        public async Task<IEnumerable<Employee>> ApplySorting(string property, string order, int pageNumber, int recordsPerPage)
         {
-            return  _mapper.Map<List<Employee>>(await _employeeRepository.ApplySorting(property, order));
+            return  _mapper.Map<List<Employee>>(await _employeeRepository.ApplySorting(property, order,pageNumber,recordsPerPage));
         }
         public async Task<List<Employee>> GetEmployeesByRoleId(int id)
         {
             return _mapper.Map<List<Employee>>(await _employeeRepository.GetEmployeesByRoleId(id));
         }
+        public async Task<int> GetEmployeesCount()
+        {
+            return await  _employeeRepository.GetEmployeesCount();
+        }
+
 
     }
 

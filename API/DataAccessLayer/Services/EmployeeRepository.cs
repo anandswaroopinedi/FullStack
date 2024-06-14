@@ -26,9 +26,10 @@ namespace DataAccessLayer.Services
             _employeeDirectoryContext.SaveChanges();
             return true;
         }
-        public async Task<List<EmployeeEntity>> GetEmployees()
+        public async Task<List<EmployeeEntity>> GetEmployees(int pageNumber,int recordsPerPage)
         {
-            return await this.JoinTable(_employeeDirectoryContext.Employees);
+            return _employeeDirectoryContext.Employees.Skip((pageNumber - 1) * recordsPerPage)
+        .Take(recordsPerPage).Include(r => r.Project).Include(r => r.RoleDeptLoc).Include(r => r.RoleDeptLoc.Location).Include(r => r.RoleDeptLoc.Department).Include(r => r.RoleDeptLoc.Role).Include(r => r.Status).ToList();
         }
         public async Task<List<EmployeeEntity>> GetEmployeesWithNotAssignedRole(string name)
         {
@@ -44,12 +45,11 @@ namespace DataAccessLayer.Services
         }
         public async Task<EmployeeEntity> GetEmployeeById(string Id)
         {
-            return _employeeDirectoryContext.Employees.Where(emp=>emp.Id==Id).Include(r=>r.RoleDeptLoc.Location).Include(r => r.RoleDeptLoc.Role).Include(r => r.RoleDeptLoc.Department).Where(x=>x.Status.Name.ToLower()=="active").ToList()[0];
+            return _employeeDirectoryContext.Employees.Where(emp=>emp.Id==Id).Include(r=>r.RoleDeptLoc.Location).Include(r => r.RoleDeptLoc.Role).Include(r => r.RoleDeptLoc.Department).ToList()[0];
         }
         public async Task<List<EmployeeEntity>> GetEmployeesByRoleId(int id)
         {
-            int activeId = _employeeDirectoryContext.Statuses.Where(x => x.Name.ToLower() == "active").Select(x => x.Id).FirstOrDefault();
-            return _employeeDirectoryContext.Employees.Where(emp=>emp.RoleDeptLocId==id && emp.StatusId==activeId).Include(r => r.RoleDeptLoc.Location).Include(r => r.RoleDeptLoc.Role).Include(r => r.RoleDeptLoc.Department).ToList();
+            return _employeeDirectoryContext.Employees.Where(emp=>emp.RoleDeptLocId==id).Include(r => r.RoleDeptLoc.Location).Include(r => r.RoleDeptLoc.Role).Include(r => r.RoleDeptLoc.Department).ToList();
         }
         public async Task<bool> UpdateEmployee(EmployeeEntity employee)
         {
@@ -105,20 +105,21 @@ namespace DataAccessLayer.Services
             return _employeeDirectoryContext.Employees.Select(emp => emp.Id).ToList();
         }
 
-        public async Task<List<EmployeeEntity>> ApplyFilters(Filter filterEmployee)
+        public async Task<List<EmployeeEntity>> ApplyFilters(Filter filterEmployee, int pageNumber, int recordsPerPage)
         {
             Console.WriteLine(filterEmployee.Alphabet);
             Console.WriteLine(filterEmployee.Departments.Length);
             Console.WriteLine(filterEmployee.Locations.Length);
             Console.WriteLine(filterEmployee.Statuses);
 
-            return _employeeDirectoryContext.Employees.Where(employee =>
+            return _employeeDirectoryContext.Employees.Where(employee => 
           (filterEmployee.Alphabet == "$" || employee.FirstName.StartsWith(filterEmployee.Alphabet.ToUpper())) &&
           (filterEmployee.Locations.Length == 0 || filterEmployee.Locations.Contains(employee.RoleDeptLoc.LocationId)) &&
           (filterEmployee.Departments.Length == 0 || filterEmployee.Departments.Contains(employee.RoleDeptLoc.DepartmentId))
-          && (filterEmployee.Statuses.Length == 0 || filterEmployee.Statuses.Contains(employee.Status.Id))).Include(r => r.Project).Include(r => r.RoleDeptLoc).Include(r => r.RoleDeptLoc.Location).Include(r => r.RoleDeptLoc.Department).Include(r => r.RoleDeptLoc.Role).Include(r => r.Status).ToList();
+          && (filterEmployee.Statuses.Length == 0 || filterEmployee.Statuses.Contains(employee.Status.Id))).Include(r => r.Project).Include(r => r.RoleDeptLoc).Include(r => r.RoleDeptLoc.Location).Include(r => r.RoleDeptLoc.Department).Include(r => r.RoleDeptLoc.Role).Include(r => r.Status).Skip((pageNumber - 1) * recordsPerPage)
+        .Take(recordsPerPage).ToList();
         }
-        public async Task<IEnumerable<EmployeeEntity>> ApplySorting(string property, string order)
+        public async Task<IEnumerable<EmployeeEntity>> ApplySorting(string property, string order, int pageNumber, int recordsPerPage)
         {
             if (!string.IsNullOrEmpty(property))
             {
@@ -131,20 +132,25 @@ namespace DataAccessLayer.Services
 
                     if (order.Equals("asc", StringComparison.OrdinalIgnoreCase))
                     {
-                        return _employeeDirectoryContext.Employees.OrderBy(sortExpression).Include(r => r.Project).Include(r => r.RoleDeptLoc).Include(r => r.RoleDeptLoc.Location).Include(r => r.RoleDeptLoc.Department).Include(r => r.RoleDeptLoc.Role).Include(r => r.Status).ToList();
+                        return _employeeDirectoryContext.Employees.Include(r => r.Project).Include(r => r.RoleDeptLoc).Include(r => r.RoleDeptLoc.Location).Include(r => r.RoleDeptLoc.Department).Include(r => r.RoleDeptLoc.Role).Include(r => r.Status).OrderBy(sortExpression).Skip((pageNumber - 1) * recordsPerPage)
+        .Take(recordsPerPage).ToList();
                     }
                     else if (order.Equals("desc", StringComparison.OrdinalIgnoreCase))
                     {
-                        return _employeeDirectoryContext.Employees.OrderByDescending(sortExpression).Include(r => r.Project).Include(r => r.RoleDeptLoc).Include(r => r.RoleDeptLoc.Location).Include(r => r.RoleDeptLoc.Department).Include(r => r.RoleDeptLoc.Role).Include(r => r.Status).ToList();
+                        return _employeeDirectoryContext.Employees.Include(r => r.Project).Include(r => r.RoleDeptLoc).Include(r => r.RoleDeptLoc.Location).Include(r => r.RoleDeptLoc.Department).Include(r => r.RoleDeptLoc.Role).Include(r => r.Status).OrderByDescending(sortExpression).Skip((pageNumber - 1) * recordsPerPage)
+        .Take(recordsPerPage).ToList();
                     }
                 }
             }
             return [];
         }
+        public async Task<int> GetEmployeesCount()
+        {
+            return _employeeDirectoryContext.Employees.Count();
+        }
         private async Task<List<EmployeeEntity>> JoinTable(DbSet<EmployeeEntity> employees)
         {
-            //int inactiveId = _employeeDirectoryContext.Statuses.Where(x => x.Name.ToLower() == "in active").Select(x => x.Id).FirstOrDefault();
-            return  employees.Include(r => r.Project).Include(r => r.RoleDeptLoc).Include(r => r.RoleDeptLoc.Location).Include(r => r.RoleDeptLoc.Department).Include(r => r.RoleDeptLoc.Role).Include(r => r.Status).Where(x=> x.Status.Name.ToLower() == "active").ToList();
+            return  employees.Include(r => r.Project).Include(r => r.RoleDeptLoc).Include(r => r.RoleDeptLoc.Location).Include(r => r.RoleDeptLoc.Department).Include(r => r.RoleDeptLoc.Role).Include(r => r.Status).ToList();
         }
     }
 }

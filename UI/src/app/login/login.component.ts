@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
 import { LoginService } from './login.service';
+import { AuthService } from '../Services/Auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ import { LoginService } from './login.service';
 export class LoginComponent {
   loginForm:FormGroup;
   dispLogin:boolean=true;
-  constructor(private route:Router,private loginService:LoginService)
+  constructor(private route:Router,private loginService:LoginService,private authService:AuthService)
   {
     this.loginForm=new FormGroup({
       name:new FormControl('',[Validators.required]),
@@ -28,7 +29,7 @@ export class LoginComponent {
     {
       this.dispLogin=false;
       this.loginService.postLoginDetails(this.loginForm.value).subscribe((value)=>{
-        sessionStorage.setItem('token',value);
+        this.authService.setToken(value);
         this.route.navigate(["/home"]);
       })
     }

@@ -21,10 +21,10 @@ namespace AspWebApi.Controllers
         // GET: api/<ValuesController>
         [HttpGet("all")]
         [Authorize]
-        public async Task<IEnumerable<Employee>> GetAllEmployees()
+        public async Task<IEnumerable<Employee>> GetAllEmployees(int pageNumber, int recordsPerPage)
         {
-            List<Employee> e = await _employeeManager.GetAllEmployees();
-            return await _employeeManager.GetAllEmployees();
+            List<Employee> e = await _employeeManager.GetAllEmployees(pageNumber,recordsPerPage);
+            return await _employeeManager.GetAllEmployees(pageNumber,recordsPerPage);
         }
         [HttpGet("with-role-null")]
         public async Task<List<Employee>> GetEmployeesWithNotAssignedRole(string name)
@@ -53,24 +53,24 @@ namespace AspWebApi.Controllers
 
 
         [HttpDelete("multi-delete")]
-        public async Task<IEnumerable<Employee>> DeleteEmployees([FromBody] string[] ids)
+        public async Task<IEnumerable<Employee>> DeleteEmployees([FromBody] string[] ids, int pageNumber, int recordsPerPage)
         {
             Console.WriteLine(ids);
             if (ids.Length > 0)
             {
                 await _employeeManager.DeleteEmployees(ids);
             }
-            return await _employeeManager.GetAllEmployees();
+            return await _employeeManager.GetAllEmployees(pageNumber, recordsPerPage);
         }
         [HttpPost("filter")]
-        public async Task<IEnumerable<Employee>> ApplyFiltersOnEmployee(Filter inputFilters)
+        public async Task<IEnumerable<Employee>> ApplyFiltersOnEmployee(Filter inputFilters, int pageNumber, int recordsPerPage)
         {
-            return await _employeeManager.ApplyFilter(inputFilters);
+            return await _employeeManager.ApplyFilter(inputFilters,pageNumber,recordsPerPage);
         }
         [HttpGet("sort")]
-        public async Task<IEnumerable<Employee>> ApplySorting(string property, string order)
+        public async Task<IEnumerable<Employee>> ApplySorting(string property, string order,int pageNumber, int recordsPerPage)
         {
-            return await _employeeManager.ApplySorting(property, order);
+            return await _employeeManager.ApplySorting(property, order,pageNumber,recordsPerPage);
         }
         [HttpGet("fetch-through-id")]
         public async Task<Employee> GetEmployeeById(string id)
@@ -82,6 +82,10 @@ namespace AspWebApi.Controllers
         {
             return await _employeeManager.GetEmployeesByRoleId(id);
         }
-
+        [HttpGet("count")]
+        public async Task<int> GetEmployeesCount()
+        {
+            return await _employeeManager.GetEmployeesCount();
+        }
     }
 }

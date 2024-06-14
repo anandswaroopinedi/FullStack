@@ -21,6 +21,7 @@ export class WebApiUrls {
   departments: string;
   projects: string;
   statuses: string;
+  employeeCount:string;
   constructor() {
     this.addEmployee = 'https://localhost:7270/api/Employee/create';
     this.getAllEmployees =
@@ -45,5 +46,6 @@ export class WebApiUrls {
     this.departments = 'https://localhost:7270/api/Department/all';
     this.projects = 'https://localhost:7270/api/Project/all';
     this.statuses = 'https://localhost:7270/all';
+    this.employeeCount='https://localhost:7270/api/Employee/count';
   }
 }

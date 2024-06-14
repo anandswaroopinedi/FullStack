@@ -157,7 +157,7 @@ export class AddEmployeeComponent implements OnInit {
         this.statuses = value;
       });
     this.emoployeeSubscription = this.employeeService
-      .getEmployeeData()
+      .getEmployeeData(1,4)
       .subscribe((value) => {
         this.managers = value;
       });

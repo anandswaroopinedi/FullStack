@@ -1,0 +1,10 @@
+<nav aria-label="...">
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" (click)="checkPreviousPage()">Previous</a></li>
+        @for(item of getnumbers();track item;let i = $index)
+        {
+            <li class="page-item"><a class="page-link" (click)="selectPage(item)">{{item}}</a></li>
+        }
+        <li class="page-item"><a class="page-link" (click)="checkNextPage()">Next</a></li>
+    </ul>
+  </nav>

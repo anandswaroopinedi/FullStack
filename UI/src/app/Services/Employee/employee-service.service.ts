@@ -18,17 +18,24 @@ export class EmployeeService {
     console.log('post method called');
     return this.http.post<boolean>(this.apiUrls.addEmployee, employee);
   }
-  getEmployeeData(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(this.apiUrls.getAllEmployees);
+  getEmployeeData(pageNumber:number,pageSize:number): Observable<Employee[]> {
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber)
+      .set('recordsPerPage', pageSize);
+    return this.http.get<Employee[]>(this.apiUrls.getAllEmployees,{params});
   }
   getEmployeesWithRoleNull(name: string): Observable<Employee[]> {
     return this.http.get<Employee[]>(
       this.apiUrls.getEmployeesWithRolenull + name
     );
   }
-  deleteEmployeeData(employeeIds: string[]): Observable<Employee[]> {
+  deleteEmployeeData(employeeIds: string[],pageNumber:number,pageSize:number): Observable<Employee[]> {
+    const params = new HttpParams()
+    .set('pageNumber', pageNumber)
+    .set('recordsPerPage', pageSize);
     return this.http.delete<Employee[]>(this.apiUrls.deleteEmployees, {
       body: employeeIds,
+      params:params,
     });
   }
   updateEmployee(employee: Employee) {
@@ -37,16 +44,21 @@ export class EmployeeService {
   getEmployeeIds(): Observable<string[]> {
     return this.http.get<string[]>(this.apiUrls.getAllIds);
   }
-  applyFilters(inputFilters: FilterData): Observable<Employee[]> {
+  applyFilters(inputFilters: FilterData,pageNumber:number,pageSize:number): Observable<Employee[]> {
+    const params = new HttpParams()
+    .set('pageNumber', pageNumber)
+    .set('recordsPerPage', pageSize);
     return this.http.post<Employee[]>(
       this.apiUrls.filterEmployees,
-      inputFilters
+      inputFilters,{params}
     );
   }
-  applySorting(property: string, order: string): Observable<Employee[]> {
+  applySorting(property: string, order: string,pageNumber:number,pageSize:number): Observable<Employee[]> {
     const params = new HttpParams()
       .set('property', property)
-      .set('order', order);
+      .set('order', order)
+      .set('pageNumber', pageNumber)
+      .set('recordsPerPage', pageSize);
     return this.http.get<Employee[]>(this.apiUrls.sorting, { params });
   }
   getEmployeeById(id: string): Observable<Employee> {
@@ -56,20 +68,9 @@ export class EmployeeService {
   getEmployeesByRoleId(id: number): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.apiUrls.getEmployeeByRoleId + id);
   }
-  checkIfEmployeeIdExists(id:string)
-  {
-    console.log(id);
-    let t;
-    return this.getEmployeeIds();
-    // this.getEmployeeIds().subscribe((value)=>
-    // {
-    //   // console.log(value);
-    //   //  t = of(value.some((a) => a === id))
-    //         //.pipe(delay(2000));
-    // });
-    //return t
+  getEmployeeCount():Observable<number>{
+    return this.http.get<number>(this.apiUrls.employeeCount);
   }
-
   ngOnDestroy() {
     this.filterData$.unsubscribe();
   }

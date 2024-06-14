@@ -21,7 +21,6 @@ export class RoleService {
   }
   rep: any;
   addRole(role: Role, employees: string[]): Observable<string> {
-    debugger;
     let params = new HttpParams();
     params = params.append('employees', employees.join(','));
     return this.http.post<string>(this.apiUrls.postRole, role, {
